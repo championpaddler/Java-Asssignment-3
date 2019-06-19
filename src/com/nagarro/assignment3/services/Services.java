@@ -95,33 +95,6 @@ public class Services {
 	}
 	
 	
-	public void getFlights(String dep_location, String arr_loc, Date flight_date, String flight_class, String preference) {
-		
-		
-	}
-	
-
-//	public Item processData(String name, String type , Integer quantity , Double price) {
-//		Item item = new Item(name,ItemType.valueOf(type),quantity,price);
-//		switch(item.getType()){
-//		case IMPORTED:
-//			Imported imported = new Imported();
-//			item.setTax(imported.calculateTax(item.getprice()));
-//			break;
-//		case MANUFACTURED:
-//			Manufactured manufactured = new Manufactured();
-//			item.setTax(manufactured.calculateTax(item.getprice()));
-//			break;
-//		case RAW:
-//			Raw raw = new Raw();
-//			item.setTax(raw.calculateTax(item.getprice()));
-//			break;
-//		default:
-//			break;
-//		}
-//		return item;
-//	}
-	
 	public DataStorage loadData() throws ParseException   {
 
 		 String cvsSplitBy = "\\|"; 
@@ -129,6 +102,7 @@ public class Services {
 		 File[] directoryListing = dir.listFiles();
 		  if (directoryListing != null) {
 		    for (File child : directoryListing) {
+		    	
 			    String csvFile = child.getAbsolutePath();
 			    String line = "";
 			    

@@ -16,13 +16,11 @@ public class Validators {
 	public  Boolean validateDate(String date) {
 		SimpleDateFormat sdfrmt = new SimpleDateFormat("dd-MM-yyyy");
 	    sdfrmt.setLenient(false);
-
 	    try
 	    {
-	        Date javaDate = sdfrmt.parse(date); 
+	        sdfrmt.parse(date); 
 	        return true;
 	    }
-	    /* Date format is invalid */
 	    catch (ParseException e)
 	    {
 	        return false;

@@ -1,8 +1,6 @@
 package com.nagarro.assignment3.dto;
-import java.util.Comparator;
 import java.util.Date;
 public class Item  {
-	
 	private String flight_No;
 	private Date valid_till;
 	private String arr_Loc ;
@@ -37,17 +35,46 @@ public class Item  {
 	public Double getDuration() {
 		return this.duration;
 	}
-
+	
 	public Double getfare() {
 		return this.fare;
 	}
 	
+	public Date getValid() {
+		return this.valid_till;
+	}
+	
+	public String getavail() {
+		return this.avail;
+	}
+	
+	
 	public String getClasses() {
 		return this.flight_class;
 	}
+
+	public void setfare(Double fare) {
+		this.fare= fare;
+	}
+	
+	public void setClasses(String cl) {
+		this.flight_class= cl;
+	}
+	
+	public void setavail(String avail) {
+		this.avail = avail;
+	}
+	
+	public void setValid(Date d1) {
+		this.valid_till = d1;
+	}
+	
+	public void setDuration(Double d1) {
+		this.duration= d1;
+	}
 	
 	public Boolean isValid(String dep_location, String arr_loc2, Date flight_date, String flight_class2) {
-		return this.dep_Loc.equals(dep_location)&&this.arr_Loc.equals(arr_loc2)&&(flight_date.compareTo(this.valid_till)<=0)&&this.flight_class.contains(flight_class2);
+		return this.avail.equals("Y")&&this.dep_Loc.toLowerCase().equals(dep_location.toLowerCase())&&this.arr_Loc.toLowerCase().equals(arr_loc2.toLowerCase())&&(flight_date.compareTo(this.valid_till)<=0)&&this.flight_class.contains(flight_class2);
 	}
 	
 		

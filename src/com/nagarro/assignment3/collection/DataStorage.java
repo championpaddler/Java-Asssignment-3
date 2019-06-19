@@ -24,6 +24,20 @@ public class DataStorage {
 		}
 
 	}
+	
+	public void updateData(Item item) {
+		
+		for ( Item i : finallist )
+	    {
+	        if(i.getFlightNo().equals(item.getFlightNo())&&(i.getFlightTime().equals(item.getFlightTime()))) {
+	        i.setfare(item.getfare());
+	        i.setClasses(item.getClasses());
+	        i.setDuration(item.getDuration());
+	        i.setValid(item.getValid());
+	        i.setavail(item.getavail());
+	        }
+	    }
+	}
 	public  void getFlights(String dep_location, String arr_loc, Date flight_date, String flight_class, String preference) {
 		ListIterator<Item>  iterator = finallist.listIterator(); 
 		ArrayList<Item> temp1 = new ArrayList<>();
@@ -47,11 +61,21 @@ public class DataStorage {
 			}	
 			ListIterator<Item>  iterator1 = temp1.listIterator(); 	
 			logger.info("FLIGHT_NO  "+"  DURATION "+"PRICE");
+			
+			if(flight_class.equals("B")) {
+				while (iterator1.hasNext()) { 
+					Item temp2 = iterator1.next();
+					logger.info(temp2.getFlightNo()+"  "+temp2.getDuration()+" "+(temp2.getfare()+0.4*temp2.getfare()));
+		        } 
+			} else {
+				while (iterator1.hasNext()) { 
+					Item temp2 = iterator1.next();
+					logger.info(temp2.getFlightNo()+"  "+temp2.getDuration()+" "+(temp2.getfare()));
+		        } 
+				
+			}
 
-			while (iterator1.hasNext()) { 
-				Item temp2 = iterator1.next();
-				logger.info(temp2.getFlightNo()+"  "+temp2.getDuration()+" "+temp2.getfare());
-	        } 
+			
 		}
 			
 			
