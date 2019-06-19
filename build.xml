@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project name="Ant-Test" default="main" basedir=".">
+    <!-- Sets variables which can later be used. -->
+    <!-- The value of a property is accessed via ${} -->
+    <property name="src.dir" location="src" />
+    <property name="build.dir" location="bin" />
+    <property name="dist.dir" location="dist" />
+    <property name="docs.dir" location="docs" />
+	<property name="libraries" location="src/com/nagarro/externallibs" />
+	<property name="jar.dir"     value="${build.dir}"/>
+	
+    <!-- Deletes the existing build, docs and dist directory-->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+        <delete dir="${docs.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+
+    <!-- Creates the  build, docs and dist directory-->
+    <target name="makedir">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${docs.dir}" />
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+	    <path id="classpath">
+	        <fileset dir="${libraries}" includes="**/*.jar"/>
+	    </path>
+
+
+    <!-- Compiles the java code (including the usage of library for JUnit -->
+    <target name="compile" depends="clean, makedir">
+        <javac executable="C:/Program Files/Java/jdk1.8.0_65/bin/javac" 
+            fork="true"
+            taskname="javac1.6" srcdir="${src.dir}" destdir="${build.dir}" classpathref="classpath">
+        </javac>
+
+    </target>
+	
+	   <target name="run" depends="jar">
+	        <java fork="true" classname="${main-class}">
+	            <classpath>
+	                <path refid="classpath"/>
+	                <path location="${jar.dir}/${ant.project.name}.jar"/>
+	            </classpath>
+	        </java>
+	    </target>
+		
+
+
+
+    <!--Creates the deployable jar file  -->
+    <target name="jar" depends="compile">
+        <jar destfile="${dist.dir}\flights.jar" basedir="${build.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="com.nagarro.assignment3.Flights.Flights" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="main" depends="compile, jar">
+        <description>Main target</description>
+    </target>
+
+</project>
