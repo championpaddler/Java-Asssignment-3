@@ -1,21 +1,24 @@
-package com.nagarro.assignment3.dto;
-
-import java.nio.file.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+package com.nagarro.assignment3.services;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import static java.nio.file.StandardWatchEventKinds.*;
 
 import com.nagarro.assignment3.collection.DataStorage;
-import com.nagarro.assignment3.constants.*;
+import com.nagarro.assignment3.constants.TaxConstants;
+import com.nagarro.assignment3.dto.Item;
 
 public class Watcher  {
 	public Watcher (DataStorage ds) throws IOException {
@@ -28,12 +31,22 @@ public class Watcher  {
 
 		     		Path directory = Paths.get(TaxConstants.DIRECTORY_TO_WATCH);
 		     		WatchKey watchKey = directory.register(watchService, 
-		     				StandardWatchEventKinds.ENTRY_MODIFY
+		     				ENTRY_MODIFY,ENTRY_CREATE
 		     				);		     	
 
 		     		while (true) {
 
 		     			for (WatchEvent<?> event : watchKey.pollEvents()) {
+		     				WatchEvent.Kind<?> kind = event.kind();
+
+		     		        // This key is registered only
+		     		        // for ENTRY_CREATE events,
+		     		        // but an OVERFLOW event can
+		     		        // occur regardless if events
+		     		        // are lost or discarded.
+		     		        if (kind == OVERFLOW) {
+		     		            continue;
+		     		        }
 		     					
 		     					Path file = directory.resolve((Path) event.context());
 			     				String cvsSplitBy = "\\|"; 

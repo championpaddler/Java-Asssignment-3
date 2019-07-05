@@ -37,7 +37,6 @@ public class Flights {
 		    Services service = new Services();
 		    DataStorage ds = service.loadData();
 			new Watcher(ds);
-
 			logger.info("Welcome to Tax Utility");
 			try {    
 				while(true) {
